@@ -31,4 +31,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'deezer' => [
+        'base_uri' => env('DEEZER_URI'),
+        'client_id' => env('DEEZER_CLIENT_ID'),
+        'client_secret' => env('DEEZER_CLIENT_SECRET'),
+    ],
+
 ];
