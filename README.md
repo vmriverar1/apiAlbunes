@@ -1,15 +1,8 @@
-<p align="center"><a href="https://cliente2.sistemaveme.com/api" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="ApiAlbunes Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/username/repo/actions"><img src="https://github.com/username/repo/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/username/repo"><img src="https://img.shields.io/packagist/dt/username/repo" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/username/repo"><img src="https://img.shields.io/packagist/v/username/repo" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/username/repo"><img src="https://img.shields.io/packagist/l/username/repo" alt="License"></a>
-</p>
 
 ## About ApiAlbunes
 
-ApiAlbunes es una aplicación inspirada en Deezer, diseñada para facilitar el acceso a una extensa biblioteca de álbumes, canciones y artistas. La aplicación está disponible y en funcionamiento, accesible a través de [este link](https://cliente2.sistemaveme.com/api).
+ApiAlbunes es una aplicación inspirada en Deezer, diseñada para facilitar el acceso a una extensa biblioteca de álbumes, canciones y artistas. La aplicación está disponible y en funcionamiento, accesible a través de https://cliente2.sistemaveme.com/api.
 
 ### Funcionalidad
 
