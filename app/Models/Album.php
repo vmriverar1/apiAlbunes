@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Track;
+use App\Models\Contributor;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Album extends Model
 {
@@ -28,5 +30,20 @@ class Album extends Model
     public function artist()
     {
         return $this->belongsTo(Artist::class);
+    }
+
+    public function contributor()
+    {
+        return $this->hasOne(Contributor::class, 'album_id', 'id');
+    }
+
+    public function getContributorAttribute()
+    {
+        return $this->contributor()->first();
+    }
+
+    public function tracks()
+    {
+        return $this->hasMany(Track::class)->with(['artist', 'album']);
     }
 }

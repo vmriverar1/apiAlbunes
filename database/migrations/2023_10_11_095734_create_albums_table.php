@@ -36,7 +36,7 @@ return new class extends Migration
             $table->boolean('explicit_content_lyrics')->default(false);
             $table->boolean('explicit_content_cover')->default(false);
             $table->foreignId('artist_id')->constrained('artists')->onDelete('cascade');
-            $table->timestamps();
+        $table->timestamps();
         });
     }
 
