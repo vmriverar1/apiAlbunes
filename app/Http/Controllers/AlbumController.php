@@ -15,20 +15,60 @@ class AlbumController extends Controller
 {
     public function show($id)
     {
-        $album = Album::with(['genre', 'artist', 'contributor', 'tracks'])->find($id);
+        try {
+            $album = Album::with(['genre', 'artist', 'contributor', 'tracks'])->find($id);
 
-        if (!$album) {
-            $album = resolve(DeezerServices::class)->find_album($id);
-            $album = json_decode($album, true);
-            $this->saveArtist($album["artist"],$album["contributors"][0]);
-            $this->saveGenres($album["genres"]["data"]);
-            $this->saveAlbum($album);
-            $this->saveTracks($album["tracks"]["data"], $album["id"], $album["artist"]["id"]);
-            $this->saveContributors($album["contributors"], $album["id"]);
-            return response($album);
+            if (!$album) {
+                $album = resolve(DeezerServices::class)->find_album($id);
+                $album = json_decode($album, true);
+                $this->saveArtist($album["artist"],$album["contributors"][0]);
+                $this->saveGenres($album["genres"]["data"]);
+                $this->saveAlbum($album);
+                $this->saveTracks($album["tracks"]["data"], $album["id"], $album["artist"]["id"]);
+                $this->saveContributors($album["contributors"], $album["id"]);
+                return response($album);
+            }
+            
+            return new AlbumResource($album);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred while processing your request'], 500);
         }
-        
-        return new AlbumResource($album);
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $album = Album::with(['genre', 'artist', 'contributor', 'tracks'])->find($id);
+
+            if (!$album) {
+                return response()->json(['error' => 'Album not found'], 404);
+            }
+
+            $album->update($request->all());
+            return new AlbumResource($album);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred while processing your request'], 500);
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $album = Album::find($id);
+
+            if (!$album) {
+                return response()->json(['error' => 'Album not found'], 404);
+            }
+
+            $album->delete();
+
+            return response()->json(['message' => 'Album deleted successfully'], 200);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred while processing your request'], 500);
+        }
     }
 
     private function saveArtist($artistData, $contributorData) 

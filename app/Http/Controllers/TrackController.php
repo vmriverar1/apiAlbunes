@@ -16,18 +16,22 @@ class TrackController extends Controller
 {
     public function search(Request $request)
     {
-        $data = $request->query('q');
+        try {
+            $data = $request->query('q');
 
-        if ($this->isRecentSearch($data)) {
-            $tracks = $this->getTracks($data);
-            return new TrackCollection($tracks);
+            if ($this->isRecentSearch($data)) {
+                $tracks = $this->getTracks($data);
+                return new TrackCollection($tracks);
+            }
+            
+            $results = $this->fetchAndSaveTracks($data);
+            $this->updateSearchHistory($data);
+
+
+            return response($this->paginateResults($results));
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred while processing your request'], 500);
         }
-        
-        $results = $this->fetchAndSaveTracks($data);
-        $this->updateSearchHistory($data);
-
-
-        return response($this->paginateResults($results));
     }
 
     private function isRecentSearch($data)
